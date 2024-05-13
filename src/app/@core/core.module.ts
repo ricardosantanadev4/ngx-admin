@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
+import { NbAuthJWTToken, NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -103,23 +103,46 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
 export const NB_CORE_PROVIDERS = [
   ...MockDataModule.forRoot().providers,
   ...DATA_SERVICES,
-  ...NbAuthModule.forRoot({
 
+  ...NbAuthModule.forRoot({
+    // old simula uma autenticacao para testes no front end sem a necessidade de uma API
+    // strategies: [
+    //   NbDummyAuthStrategy.setup({
+    //     name: 'email',
+    //     delay: 3000,
+    //   }),
+    // ],
+    // forms: {
+    //   login: {
+    //     socialLinks: socialLinks,
+    //   },
+    //   register: {
+    //     socialLinks: socialLinks,
+    //   },
+    // },
+    // new
     strategies: [
-      NbDummyAuthStrategy.setup({
+      NbPasswordAuthStrategy.setup({
         name: 'email',
-        delay: 3000,
+        token: {
+          class: NbAuthJWTToken,
+          key: 'acessTonkenm',
+        },
+        baseEndpoint: 'api/',
+        login: {
+          endpoint: 'token/login',
+          method: 'post',
+          redirect: {
+            success: '/pages/dashboard',
+            failure: null, // stay on the same page
+          },
+        },
       }),
     ],
-    forms: {
-      login: {
-        socialLinks: socialLinks,
-      },
-      register: {
-        socialLinks: socialLinks,
-      },
-    },
+    forms: {},
   }).providers,
+
+
 
   NbSecurityModule.forRoot({
     accessControl: {
@@ -168,3 +191,4 @@ export class CoreModule {
     };
   }
 }
+

@@ -10,43 +10,62 @@ import {
 } from '@nebular/auth';
 
 export const routes: Routes = [
+  // {
+  //   path: 'pages',
+  //   loadChildren: () => import('./pages/pages.module')
+  //     .then(m => m.PagesModule),
+  // },
+  // {
+  //   path: 'auth',
+  //   component: NbAuthComponent,
+  //   children: [
+  //     {
+  //       path: '',
+  //       component: NbLoginComponent,
+  //     },
+  //     {
+  //       path: 'login',
+  //       component: NbLoginComponent,
+  //     },
+  //     {
+  //       path: 'register',
+  //       component: NbRegisterComponent,
+  //     },
+  //     {
+  //       path: 'logout',
+  //       component: NbLogoutComponent,
+  //     },
+  //     {
+  //       path: 'request-password',
+  //       component: NbRequestPasswordComponent,
+  //     },
+  //     {
+  //       path: 'reset-password',
+  //       component: NbResetPasswordComponent,
+  //     },
+  //   ],
+  // },
+
+  // { path: '', redirectTo: 'pages', pathMatch: 'full' }, // original
+  // { path: '**', redirectTo: 'pages' },
+
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module')
+      .then(m => m.NgxAuthModule),
+  },
   {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },
   {
-    path: 'auth',
-    component: NbAuthComponent,
-    children: [
-      {
-        path: '',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'login',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'register',
-        component: NbRegisterComponent,
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
-      },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent,
-      },
-      {
-        path: 'reset-password',
-        component: NbResetPasswordComponent,
-      },
-    ],
+    path: '', redirectTo: 'auth', pathMatch: 'full'
   },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  {
+    path: '**', redirectTo: 'auth'
+  },
+
 ];
 
 const config: ExtraOptions = {
