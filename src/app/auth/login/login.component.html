@@ -4,14 +4,14 @@
 <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
   <p class="alert-title"><b>Ops!</b></p>
   <ul class="alert-message-list">
-    <li *ngFor="let error of errors" class="alert-message">{{ error }}</li>
+    <li *ngFor="let error of errors" class="alert-message">A combinação de login/e-mail não está correta. Tente novamente.</li>
   </ul>
 </nb-alert>
 
 <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
-  <p class="alert-title"><b>Hooray!</b></p>
+  <p class="alert-title"><b>Viva!</b></p>
   <ul class="alert-message-list">
-    <li *ngFor="let message of messages" class="alert-message">{{ message }}</li>
+    <li *ngFor="let message of messages" class="alert-message">Você fez login com sucesso.</li>
   </ul>
 </nb-alert>
 
@@ -37,7 +37,7 @@
         O e-mail é obrigatório!
       </p>
       <p class="caption status-danger" *ngIf="email.errors?.pattern">
-        Email should be the real one!
+        O e-mail deve ser valido!
       </p>
     </ng-container>
   </div>
@@ -115,3 +115,4 @@
 <section class="another-action" aria-label="Register">
   Don't have an account? <a class="text-link" routerLink="../register">Register</a>
 </section>
+
